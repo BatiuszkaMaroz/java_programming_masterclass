@@ -1,6 +1,6 @@
-package com.part2;
+package com.david.part2;
 
-import static com.part2.Color.*;
+import static com.david.part2.Color.*;
 
 class Countdown {
   private int i = 10;

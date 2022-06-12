@@ -1,6 +1,6 @@
-package com.part1;
+package com.david.part1;
 
-import static com.part1.Color.*;
+import static com.david.part1.Color.*;
 
 public class CustomThread extends Thread {
 
