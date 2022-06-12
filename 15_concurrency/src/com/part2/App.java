@@ -5,6 +5,8 @@ import static com.part2.Color.*;
 class Countdown {
   private int i = 10;
 
+  // synchronized method can be executed only by one thread at a time
+  // public synchronized void startCountdown() {
   public void startCountdown() {
     String color;
 
@@ -19,8 +21,13 @@ class Countdown {
         color = ANSI_GREEN;
     }
 
-    while (i-- > 0)
-      System.out.println(color + Thread.currentThread().getName() + ": i = " + i + ANSI_RESET);
+    // synchronization happens on argument passed to synchronized()
+    // argument become monitor object and synchronization takes place on this object
+    synchronized (this) {
+      i = 10;
+      while (i-- > 0)
+        System.out.println(color + Thread.currentThread().getName() + ": i = " + i + ANSI_RESET);
+    }
   }
 }
 
