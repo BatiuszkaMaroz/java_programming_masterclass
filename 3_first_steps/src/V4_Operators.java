@@ -6,9 +6,11 @@ public class V4_Operators {
     /*
      * [10] and [mul] are operands
      * [res] is a operator
-     * [10 * mul] is a expression (combination of operators (>= 1) and operands (0
-     * >=) or
-     * everything on right side of "=" sign)
+     * [10 * mul] is a expression
+     *
+     * expression is a combination of operators (>= 1) and operands (>= 1) that
+     * computes to produce/return another value during process called evaluation
+     * e.g. int a = 1, (1 + 2)
      */
 
     int i = 50;
