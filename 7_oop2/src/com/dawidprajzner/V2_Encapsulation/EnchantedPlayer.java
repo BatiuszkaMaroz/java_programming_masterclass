@@ -1,9 +1,18 @@
 package com.dawidprajzner.V2_Encapsulation;
 
-public class Player {
-  public String name;
-  public int health;
-  public String weapon;
+public class EnchantedPlayer {
+  private String name;
+  private int health;
+  private String weapon;
+
+  public EnchantedPlayer(String name, int health, String weapon) {
+    if (health < 0 || 100 < health)
+      health = 100;
+
+    this.name = name;
+    this.health = health;
+    this.weapon = weapon;
+  }
 
   public void loseHealth(int damage) {
     health -= damage;
