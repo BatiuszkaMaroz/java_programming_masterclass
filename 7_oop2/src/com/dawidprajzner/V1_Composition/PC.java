@@ -20,4 +20,7 @@ public class PC {
     monitor.drawPixelAt(400, 400, "yellow");
   }
 
+  public void loadProgram(String programName) {
+    motherboard.loadProgram(programName);
+  }
 }

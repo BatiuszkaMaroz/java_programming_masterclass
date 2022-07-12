@@ -27,4 +27,8 @@ public class EnchantedPlayer {
   public int remainingHealth() {
     return health;
   }
+
+  public String getWeapon() {
+    return weapon;
+  }
 }
