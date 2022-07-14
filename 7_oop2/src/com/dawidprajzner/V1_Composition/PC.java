@@ -11,13 +11,13 @@ public class PC {
     this.motherboard = motherboard;
   }
 
+  private void drawLogo() {
+    monitor.drawPixelAt(400, 400, "yellow");
+  }
+
   public void powerUp() {
     casing.pressPowerButton();
     drawLogo();
-  }
-
-  private void drawLogo() {
-    monitor.drawPixelAt(400, 400, "yellow");
   }
 
   public void loadProgram(String programName) {

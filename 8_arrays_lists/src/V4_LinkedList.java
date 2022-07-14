@@ -23,6 +23,9 @@ public class V4_LinkedList {
      * Can move in both directions.
      * It is placed BETWEEN to nodes.
      * Can perform all CRUD operations.
+     *
+     * set() operation replaces last returned element,
+     * so it depends whether 'next' or 'prev' was called earlier
      */
 
     ListIterator<String> i = list.listIterator(1);

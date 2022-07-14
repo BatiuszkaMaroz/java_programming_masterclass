@@ -36,6 +36,7 @@ public class V1_Numbers {
      * overflow happens when value exceeds max/min range of data type
      * (bit overflow)
      */
+
     int max = Integer.MAX_VALUE;
     int min = Integer.MIN_VALUE;
 
@@ -59,7 +60,7 @@ public class V1_Numbers {
     long l1 = 2_147_483_647 * 2; // will transform to int
     long l2 = 2_147_483_647L * 2; // ok
     long l3 = 2_147_483_647 * 2L; // ok
-    // long l4 = 2_147_483_648; // causes error
+    long l4 = 2_147_483_648; // causes error because of int overflow
     long l5 = 2_147_483_648L; // ok
 
     System.out.println("l1 = " + l1); // overflow
@@ -87,6 +88,7 @@ public class V1_Numbers {
      * (100 + 1L) transforms to long
      * an expression transforms to largest data type
      */
+
     long longTotal = 20_000L + 10 * (b + s + i);
     System.out.println("longTotal = " + longTotal);
 

@@ -6,6 +6,7 @@ public class Main {
      * without encapsulation
      * - there is no field validation
      * - some fields can be missed while constructing object
+     * and setting fields manually
      * - inconsistency in usage, there are many ways to change value of field
      */
 
@@ -27,21 +28,5 @@ public class Main {
     EnchantedPlayer ep1 = new EnchantedPlayer("William Wallace", 100, "Santander");
     ep1.loseHealth(50);
     ep1.loseHealth(50);
-
-    Printer printer = new Printer();
-    printer.printPage("Hello World!");
-
-    printer.clickPowerButton();
-    printer.printPage("Hello World!");
-
-    printer.refillToner(90);
-    printer.refillToner(20);
-    printer.printPage("Hello World!");
-
-    printer.addSheets(10);
-    printer.printPage("Hello World!");
-
-    System.out.printf("Printed %d pages.", printer.getPagesPrinted());
   }
-
 }
