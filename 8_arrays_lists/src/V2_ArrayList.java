@@ -4,13 +4,12 @@ import java.util.Arrays;
 public class V2_ArrayList {
   public static void main(String[] args) {
     /*
-     * Specification
-     *
-     * ArrayList is implemented as an array that can be resized.
+     * [Specification]
+     * ArrayList is implemented as an array of Objects that can be resized.
      * Extending is creating new array that is 50% larger than old one,
      * and then copying elements from old to new.
      *
-     * Time Complexity
+     * [Time Complexity]
      * - insert last: O(1) / O(n) if array is being extended
      * - insert at index: O(n)
      * - get by index: O(1)
