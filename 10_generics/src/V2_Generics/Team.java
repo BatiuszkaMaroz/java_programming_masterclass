@@ -3,7 +3,7 @@ package V2_Generics;
 import java.util.ArrayList;
 
 /*
- * generic type can extend one class and many interfaces
+ * Single generic type can extend one class and many interfaces.
  *
  * [syntax]
  * <T extends A & B & C>
@@ -25,6 +25,10 @@ public class Team<T extends Player> implements Comparable<Team<T>> {
   public String getName() {
     return name;
   }
+
+  /*
+   * Method used in e.g. .compareTo(), Collections.sort().
+   */
 
   @Override
   public int compareTo(Team<T> opponent) {
