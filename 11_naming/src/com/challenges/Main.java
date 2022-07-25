@@ -1,4 +1,4 @@
-package com.anonymous;
+package com.challenges;
 
 import com.dawidprajzner.Series;
 

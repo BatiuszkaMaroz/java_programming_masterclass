@@ -15,6 +15,8 @@ public class V3_ExportJar {
      * "Java Project -> Referenced Libraries -> Add Jar Libraries..."
      * but this will only add link in ".vscode/settings.json" so in IntelliJ it
      * won't work. So use first approach.
+     *
+     * To recreate .jar file use unzipping program like winRAR or 7-zip.
      */
 
     HelloPrinter h = new HelloPrinter();
