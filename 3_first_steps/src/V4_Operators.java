@@ -1,16 +1,18 @@
 public class V4_Operators {
   public static void operators() {
-    int mul = 5;
-    int res = 10 * mul;
+    int n = 5;
+    int res = 10 * n;
 
     /*
-     * [10] and [mul] are operands
-     * [res] is a operator
-     * [10 * mul] is a expression
+     * [10] and [n] are operands
+     * [*] and [=] are a operators
+     * [10 * n] is an expression
      *
      * expression is a combination of operators (>= 1) and operands (>= 1) that
      * computes to produce/return another value during process called evaluation
-     * e.g. int a = 1, (1 + 2)
+     * e.g.
+     * int a = 1
+     * 1 + 2
      */
 
     int i = 50;

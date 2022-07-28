@@ -21,6 +21,7 @@ public class V1_Numbers {
     long l = 9_223_372_036_854_775_807L; // "L" should be added at the end
 
     // 32 bits, fractional numbers, sufficient for 6 to 7 decimal digits
+    // usually not used, double is preferred
     System.out.println("Float MAX = " + Float.MAX_VALUE);
     System.out.println("Float MIN = " + Float.MIN_VALUE);
     float f = 1.123456f; // "f" should be added at the end
@@ -60,10 +61,10 @@ public class V1_Numbers {
     long l1 = 2_147_483_647 * 2; // will transform to int
     long l2 = 2_147_483_647L * 2; // ok
     long l3 = 2_147_483_647 * 2L; // ok
-    long l4 = 2_147_483_648; // causes error because of int overflow
+    // long l4 = 2_147_483_648; // error: type int is out of range
     long l5 = 2_147_483_648L; // ok
 
-    System.out.println("l1 = " + l1); // overflow
+    System.out.println("l1 = " + l1); // overflow (on interger)
     System.out.println("l2 = " + l2); // correct
     System.out.println("l3 = " + l3); // correct
   }
@@ -73,7 +74,7 @@ public class V1_Numbers {
     int byteMin = Byte.MIN_VALUE;
 
     int v1 = (intMin / 2);
-    // byte v2 = (byteMin / 2); // will cause error
+    // byte v2 = (byteMin / 2); // error: cannot convert from int to byte
     byte v2 = (byte) (byteMin / 2);
     short v3 = (short) (intMin / 2);
   }

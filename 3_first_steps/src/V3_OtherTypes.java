@@ -8,16 +8,14 @@ public class V3_OtherTypes {
 
     boolean res = c1 == c2;
     if (res)
-      System.err.println("\u00BB equal \u00AB");
+      System.err.println("\u00BB c1 and c2 are equal \u00AB");
 
     /*
-     * not a primitive type like previous, it is a class in a fact
-     * and that's why it starts with big letter
+     * String is not a primitive type, it is a class (that's why it starts with big
+     * letter).
      *
-     * techincally it is limeted by machine memory or Integer.MAX_VALUE
-     *
-     * strings are immutable so concat/insert/delete/etc... methods
-     * create new strings instead of operating on currently existing ones
+     * Strings are IMMUTABLE so concat/insert/delete/etc... methods
+     * create new strings instead of operating on currently existing ones.
      */
 
     String str1 = "Ala has";
