@@ -28,6 +28,9 @@ public class Seat implements Comparable<Seat> {
 
   @Override
   public int compareTo(Seat seat) {
+    if (seat == null)
+      throw new NullPointerException();
+
     String id1 = this.getId();
     String id2 = seat.getId();
 

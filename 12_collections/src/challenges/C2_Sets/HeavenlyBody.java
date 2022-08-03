@@ -47,7 +47,7 @@ public abstract class HeavenlyBody {
 
     @Override
     public int hashCode() {
-      return name.hashCode() + bodyType.hashCode() + 31;
+      return (name.hashCode() + bodyType.hashCode()) * 31;
     }
 
     @Override

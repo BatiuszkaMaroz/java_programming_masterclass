@@ -25,11 +25,15 @@ public class Seat implements Comparable<Seat> {
    * Implementing Comparable interface on class allows us to use Collections
    * framework to work on a collaction of this class instances (including
    * binarySearch, sorting, min, max and other).
+   *
+   * If comparing object is null, throw NPE.
    */
 
   @Override
   public int compareTo(Seat seat) {
-    System.out.print(".");
+    if (seat == null)
+      throw new NullPointerException();
+
     String id1 = this.getId();
     String id2 = seat.getId();
 

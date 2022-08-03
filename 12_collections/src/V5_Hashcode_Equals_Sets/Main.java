@@ -1,10 +1,13 @@
-package V5_Sets;
+package V5_Hashcode_Equals_Sets;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Main {
   /*
+   * Things in this section about hashcode() and equals() also apply to keys in
+   * maps.
+   *
    * Sets:
    * - chaotic order,
    * - no duplicates,
@@ -14,8 +17,7 @@ public class Main {
    * HashSet uses HashMap (since java 8) under the hood, it uses keys from HashMap
    * because they are unique.
    *
-   *
-   * If you use own object as set keys you SHOULD implement own
+   * If you use own object as map/set keys you SHOULD implement own
    * hashCode() and equals() method overrides.
    * Otherwise all elements will be added because compare will happen on object
    * reference.

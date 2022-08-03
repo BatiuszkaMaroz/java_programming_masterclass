@@ -1,4 +1,4 @@
-package V5_Sets;
+package V5_Hashcode_Equals_Sets;
 
 public final class Planet {
   private final String name;
@@ -26,22 +26,20 @@ public final class Planet {
     if (this == obj)
       return true;
 
-    if (obj == null)
+    // remember this line
+    if (obj == null || this.getClass() != obj.getClass())
       return false;
 
-    // if (this.getClass() != obj.getClass())
-    // return false;
-
-    // return name.equals(((Planet) obj).getName());
-
-    if (obj instanceof Planet planet)
-      return name.equals(planet.getName());
-
-    return false;
+    return name.equals(((Planet) obj).getName());
   }
 
   @Override
   public int hashCode() {
-    return name.hashCode();
+    return name.hashCode() * 31;
+
+    /*
+     * If hash code is combined of more values you can use this.
+     */
+    // return Objects.hash(a, b, c);
   }
 }

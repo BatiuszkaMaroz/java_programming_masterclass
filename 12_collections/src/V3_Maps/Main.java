@@ -61,18 +61,10 @@ public class Main {
     System.out.println("factory replace result = " + res3);
 
     /*
-     *
+     * Get or default.
      */
 
-    Map<SameHash, Integer> sameMap = new HashMap<>();
-
-    SameHash s1 = new SameHash("David");
-    SameHash s2 = new SameHash("Jacob");
-
-    sameMap.put(s1, 1);
-    sameMap.put(s2, 2);
-
-    System.out.println(s1.toString() + ": " + sameMap.get(s1));
-    System.out.println(s2.toString() + ": " + sameMap.get(s2));
+    String res4 = map.getOrDefault("castle", "default value...");
+    System.out.println("get or default = " + res4);
   }
 }

@@ -1,9 +1,10 @@
 # (Hash)Map
 
-### TODO
+![hashmap](hashmap.png)
 
-1.Why to add 31 to hash code???
-1.instanceof and getClass();
+### Hashcode
+
+While generating hash code multiply it by 31 (or any other prime, one less than power of two) for better distribution over buckets. More on that in Effective Java book.
 
 ### get() flow:
 
@@ -28,9 +29,13 @@ If two different keys have the same hash, the two values belonging to them will 
 
 \*As of Java 8 if bucket contains 8 or more elements list is changed to balanced tree, and if 6 or less it returns to list. It improves performance to O(log n).
 
-![hashmap](hashmap.png)
-
 ### Facts
 
 - Keys should be immutable. If key has changed we're no longer able to get the corresponding value because HashMap is searching in the wrong bucket.
 - `null` can be a key in a map.
+
+### `equals()`: `instanceof` vs `getClass()`
+
+- [stackoverflow link](https://stackoverflow.com/questions/48490674/class-compare-vs-instanceof-in-equals-method-java)
+- use `instanceof` in parent class if instances of subclassess will be compared to parent class / other subclasses,
+- if only instances of one particular class will be compared use `getClass()` instead, it prevents from errors and is safer to use.
