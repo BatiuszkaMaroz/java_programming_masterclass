@@ -40,6 +40,8 @@ public class Main {
     /*
      * Or classess that implement Callable if we expect value to be returned. For
      * retreiving this value we use Future interface.
+     *
+     * Callable as an improved version of Runnable that can return values.
      */
     Future<String> future = executorService.submit(new Callable<String>() {
       @Override

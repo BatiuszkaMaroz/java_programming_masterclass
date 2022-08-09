@@ -10,6 +10,6 @@ public class MyRunnable implements Runnable {
 
   @Override
   public void run() {
-    print("Hello from runnable thread.");
+    print("Hello from runnable.");
   }
 }

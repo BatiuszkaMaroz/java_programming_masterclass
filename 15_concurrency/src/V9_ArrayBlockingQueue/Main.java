@@ -24,8 +24,11 @@ public class Main {
      * And that's why even if class is thread-safe we need to synchronize it
      * sometimes too.
      */
-    ArrayBlockingQueue<String> list = new ArrayBlockingQueue<>(10);
 
+    /*
+     * ArrayBlockingQueue is a thread-safe FIFO queue.
+     */
+    ArrayBlockingQueue<String> list = new ArrayBlockingQueue<>(10);
     ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     Producer p = new Producer(list, Colors.ANSI_RED);

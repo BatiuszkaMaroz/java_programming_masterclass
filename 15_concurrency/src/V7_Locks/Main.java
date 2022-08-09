@@ -34,12 +34,10 @@ public class Main {
     ReentrantLock lock = new ReentrantLock();
 
     /*
-     * We can add fairness argument to ReentrantLock, it will try to be fair when
+     * - We can add fairness argument to ReentrantLock, it will try to be fair when
      * selecting which thread will get lock.
-     *
-     * Also timeout can be specified on lock.
-     *
-     * Also number of threads waiting for lock can be checked.
+     * - Also timeout can be specified on lock.
+     * - Also number of threads waiting for lock can be checked.
      */
     // ReentrantLock lock = new ReentrantLock(true);
     // lock.wait(1000);

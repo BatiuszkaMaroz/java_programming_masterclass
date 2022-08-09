@@ -25,6 +25,9 @@ public class Main {
     password.validate(654321);
     password.validate(pwd);
 
+    final int one = 1;
+    // one = 2; // error
+
     // ============================================================
 
     Password extendedPassword = new Password(pwd) {
