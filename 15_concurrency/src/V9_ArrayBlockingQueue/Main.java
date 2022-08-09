@@ -1,46 +1,41 @@
-package V8_ThreadPools;
+package V9_ArrayBlockingQueue;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
-  /*
-   * Thread pool is managed set of threads.
-   * It can limit the number of active threads. So if there is maximum number of
-   * threads active in thread pool, other threads will be added to queue.
-   *
-   * More info in notes.
-   */
-
   public static final String EOF = "EOF";
 
   public static void main(String[] args) {
-    List<String> list = new ArrayList<>();
-    ReentrantLock lock = new ReentrantLock();
+    /*
+     * Thread-safe class means that only one method on class instance can be run at
+     * a time. Another method or another (or same) thread will start only after
+     * firstly called method will complete.
+     *
+     * So we can be sure that there is only one thread working on an instance at a
+     * time but still we can have problems if multiple method calls depend on each
+     * other like in consumer class, that's why adding synchronized block is
+     * required.
+     *
+     * And that's why even if class is thread-safe we need to synchronize it
+     * sometimes too.
+     */
+    ArrayBlockingQueue<String> list = new ArrayBlockingQueue<>(10);
 
     ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-    Producer p = new Producer(list, Colors.ANSI_RED, lock);
-    Consumer c1 = new Consumer(list, Colors.ANSI_BLUE, lock);
-    Consumer c2 = new Consumer(list, Colors.ANSI_CYAN, lock);
+    Producer p = new Producer(list, Colors.ANSI_RED);
+    Consumer c1 = new Consumer(list, Colors.ANSI_BLUE);
+    Consumer c2 = new Consumer(list, Colors.ANSI_CYAN);
 
-    /*
-     * We can use classess that implement Runnable to be submitted as tasks.
-     */
     executorService.execute(p);
     executorService.execute(c1);
     executorService.execute(c2);
 
-    /*
-     * Or classess that implement Callable if we expect value to be returned. For
-     * retreiving this value we use Future interface.
-     */
     Future<String> future = executorService.submit(new Callable<String>() {
       @Override
       public String call() throws Exception {
