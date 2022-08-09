@@ -1,4 +1,4 @@
-package V14_Challenge;
+package challenges.C1_Bank;
 
 /*
  * Finally is executed after return!

@@ -1,4 +1,4 @@
-package V14_Challenge;
+package challenges.C1_Bank;
 
 public class Transfer implements Runnable {
   private BankAccount srcAcc, destAcc;

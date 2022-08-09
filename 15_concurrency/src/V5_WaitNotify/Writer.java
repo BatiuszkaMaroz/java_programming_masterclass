@@ -1,12 +1,12 @@
-package V5_ProducerConsumer;
+package V5_WaitNotify;
 
 import java.util.Random;
 
-public class Reader implements Runnable {
+public class Writer implements Runnable {
   private Message message;
   private Random random = new Random();
 
-  public Reader(Message message) {
+  public Writer(Message message) {
     this.message = message;
   }
 
@@ -15,8 +15,10 @@ public class Reader implements Runnable {
    */
   @Override
   public void run() {
-    for (String latestMessage = message.read(); !latestMessage.equals("Finished"); latestMessage = message.read()) {
-      System.out.println(latestMessage);
+    String[] messages = { "Hello", "my", "dear", "world", "!" };
+
+    for (int i = 0; i < messages.length; i++) {
+      message.write(messages[i]);
 
       try {
         Thread.sleep((random.nextInt(1000)));
@@ -24,5 +26,7 @@ public class Reader implements Runnable {
         //
       }
     }
+
+    message.write("Finished");
   }
 }

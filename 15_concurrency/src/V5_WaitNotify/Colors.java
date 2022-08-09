@@ -1,4 +1,4 @@
-package V5_ProducerConsumer;
+package V5_WaitNotify;
 
 public class Colors {
   public static final String ANSI_RESET = "\u001B[0m";

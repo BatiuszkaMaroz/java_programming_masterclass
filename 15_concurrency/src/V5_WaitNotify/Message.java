@@ -1,4 +1,4 @@
-package V5_ProducerConsumer;
+package V5_WaitNotify;
 
 public class Message {
   private String message;
