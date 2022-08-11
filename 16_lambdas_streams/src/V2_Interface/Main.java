@@ -1,4 +1,4 @@
-package V2_Nested;
+package V2_Interface;
 
 public class Main {
   /*

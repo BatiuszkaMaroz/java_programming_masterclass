@@ -1,4 +1,4 @@
-package V2_Nested;
+package V2_Interface;
 
 public class Operator {
   private String execute(DoubleOperation<String> op, String arg1, String arg2) {
