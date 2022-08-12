@@ -1,7 +1,7 @@
 package V1_Debug;
 
 public class StringUtilities {
-  private StringBuilder builder = new StringBuilder();
+  // private StringBuilder builder = new StringBuilder();
   private int charsAdded = 0;
 
   public void addChar(StringBuilder builder, char c) {
