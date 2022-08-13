@@ -1,0 +1,1 @@
+docker run --rm -it -v "$(pwd)/db:/workspace" -w /workspace keinos/sqlite3
