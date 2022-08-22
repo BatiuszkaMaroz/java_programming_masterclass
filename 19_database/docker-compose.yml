@@ -1,7 +1,0 @@
-version: '2'
-services:
-  database:
-    image: keinos/sqlite3:latest
-    volumes:
-      - ./db:/workspace
-    working_dir: /workspace
