@@ -2,5 +2,22 @@
   "java.project.sourcePaths": ["src"],
   "java.project.outputPath": "bin",
   "java.project.referencedLibraries": ["lib/**/*.jar"],
-  "cSpell.words": ["Babbass", "keinos"]
+  "cSpell.words": ["Babbass", "keinos"],
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "sqlite",
+      "group": "sqlite",
+      "database": "${workspaceFolder:19_database}/db/main.db"
+    },
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "group": "sqlite",
+      "name": "music",
+      "database": "${workspaceFolder:19_database}/db/music.db"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
 }

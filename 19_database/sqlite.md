@@ -127,3 +127,127 @@ SELECT * FROM enchanted_songs;
 
 DROP VIEW enchanted_songs;
 ```
+
+### 6. Count
+
+```
+DELETE FROM songs WHERE track < 50;
+SELECT * FROM songs;
+
+SELECT * FROM songs WHERE track <> 71;
+
+SELECT count(*) FROM songs;
+SELECT count(*) FROM songs WHERE track <> 71;
+```
+
+### 7. Challenge
+
+```
+SELECT
+  songs.track,
+  songs.title
+FROM
+  songs
+INNER JOIN
+  albums ON songs.album = albums._id
+WHERE
+  albums.name = 'Forbidden'
+ORDER BY
+  songs.track;
+
+SELECT
+  songs.title
+FROM
+  songs
+INNER JOIN
+  albums ON songs.album = albums._id
+INNER JOIN
+  artists ON albums.artist = artists._id
+WHERE
+  artists.name = 'Deep Purple';
+
+SELECT * FROM artists WHERE name = 'Mehitabel';
+SELECT * FROM artists WHERE _id = 3;
+
+UPDATE artists
+SET name = 'One Kitten'
+WHERE name = 'Mehitabel';
+
+SELECT
+  songs.title
+FROM
+  songs
+INNER JOIN
+  albums ON songs.album = albums._id
+INNER JOIN
+  artists ON albums.artist = artists._id
+WHERE
+  artists.name = 'Aerosmith'
+ORDER BY
+  songs.title;
+
+SELECT
+  count(songs.title)
+FROM
+  songs
+INNER JOIN
+  albums ON songs.album = albums._id
+INNER JOIN
+  artists ON albums.artist = artists._id
+WHERE
+  artists.name = 'Aerosmith'
+ORDER BY
+  songs.title;
+
+SELECT DISTINCT
+  songs.title
+FROM
+  songs
+INNER JOIN
+  albums ON songs.album = albums._id
+INNER JOIN
+  artists ON albums.artist = artists._id
+WHERE
+  artists.name = 'Aerosmith'
+ORDER BY
+  songs.title;
+
+SELECT
+  count(DISTINCT songs.title)
+FROM
+  songs
+INNER JOIN
+  albums ON songs.album = albums._id
+INNER JOIN
+  artists ON albums.artist = artists._id
+WHERE
+  artists.name = 'Aerosmith'
+ORDER BY
+  songs.title;
+
+SELECT
+  count(DISTINCT albums._id)
+FROM
+  songs
+INNER JOIN
+  albums ON songs.album = albums._id
+INNER JOIN
+  artists ON albums.artist = artists._id
+WHERE
+  artists.name = 'Aerosmith'
+ORDER BY
+  songs.title;
+
+SELECT
+  count(DISTINCT artists.name)
+FROM
+  songs
+INNER JOIN
+  albums ON songs.album = albums._id
+INNER JOIN
+  artists ON albums.artist = artists._id
+WHERE
+  artists.name = 'Aerosmith'
+ORDER BY
+  songs.title;
+```
