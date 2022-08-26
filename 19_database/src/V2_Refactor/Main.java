@@ -7,6 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Main {
+  /*
+   * There is no elegant way to build SQL query strings in Java. You should
+   * probably just stick to string concatenation using + sign because
+   * .format/.formatted has very, very poor performance and it's mainly used for
+   * formatting data/floating-point-numbers.
+   */
+
   private static final String DB_BASE = "jdbc:sqlite:/home/david/projects/java/java_programming_masterclass/19_database/db";
   private static final String DB_NAME = "main.db";
   private static final String DB_URL = DB_BASE + "/" + DB_NAME;
