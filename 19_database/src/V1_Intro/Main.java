@@ -7,19 +7,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Main {
+
   /*
    * JDBC - Java DataBase Connectivity.
    * All JDBC drivers implement the same interface so if we want to change
    * database all we have to do is to use another driver (of course it's not
    * always 100% portable).
    */
-  static final String DB_BASE = "jdbc:sqlite:/home/david/projects/java/java_programming_masterclass/19_database/db";
+
+  static final String DB_BASE_PATH = "jdbc:sqlite:/home/david/projects/java/java_programming_masterclass/19_database/db";
   static final String DB_NAME = "main.db";
-  static final String DB_URL = DB_BASE + "/" + DB_NAME;
+  static final String DB_URL = DB_BASE_PATH + "/" + DB_NAME;
 
   public static void main(String[] args) throws Exception {
     try (Connection conn = DriverManager.getConnection(DB_URL);
         Statement stm = conn.createStatement()) {
+
       stm.execute("""
             DROP TABLE IF EXISTS contacts;
           """);
@@ -31,56 +34,67 @@ public class Main {
       stm.execute("""
           INSERT INTO contacts (name, phone, email)
           VALUES (
-            'Robbie Willow',
-            123123123,
-            'rw@mail.com'
+            'Harold',
+            111111111
+            'harold@mail.com'
           );
           """);
 
       stm.execute("""
           UPDATE contacts
-          SET phone = 111111111
-          WHERE name = 'Robbie Willow'
+          SET phone = 999999999
+          WHERE name = 'Harold'
           """);
 
       /* ================================================== */
 
-      // stat.execute("""
-      // SELECT * FROM contacts;
-      // """);
+      ResultSet rs;
 
-      // ResultSet res = stat.getResultSet();
+      /*
+       * There can be only one active ResultSet associated with one Statement.
+       *
+       * If we reuse Statement object to do another query then if ResultSet
+       * associated with this Statement exist it will be closed and cannot be used
+       * anymore.
+       *
+       * Closing statement, automatically closes ResultSet, so we don't have to do it
+       * explicitly.
+       */
 
-      ResultSet res = stm.executeQuery("""
+      /*
+       * There are two ways to get ResultsSet.
+       */
+
+      // #1
+
+      stm.execute("""
+          SELECT * FROM contacts;
+          """);
+
+      rs = stm.getResultSet();
+
+      // #2
+
+      rs = stm.executeQuery("""
             SELECT * FROM contacts;
           """);
 
       /*
-       * There can be only one active ResultSet associated with one statement.
-       *
-       * If we reuse statement object to do a query then any ResultSet associated with
-       * that statement is closed and cannot be used (even though its like assigned to
-       * some variable).
-       *
-       * stat.execute("""
-       * SELECT name FROM contacts;
-       * """);
-       *
-       * Closing statement, automatically closes ResultSet.
+       * We use cursor to loop through results. This cursor differs from Java's one,
+       * e.g. it can only go forward.
        */
 
-      while (res.next())
-        System.out.println("name = " + res.getString("name")
-            + "\nphone = " + res.getInt("phone")
-            + "\nemail = " + res.getString("email"));
-
-      res.close();
+      while (rs.next())
+        System.out.println("" +
+            "name = " + rs.getString("name")
+            + "\nphone = " + rs.getInt("phone")
+            + "\nemail = " + rs.getString("email"));
 
       /* ================================================== */
 
       stm.execute("""
             DELETE FROM contacts
-            WHERE name = 'Robbie Willow'
+            WHERE name = 'Harold'
           """);
 
     } catch (SQLException e) {

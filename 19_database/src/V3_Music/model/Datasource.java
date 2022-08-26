@@ -69,11 +69,6 @@ public class Datasource {
 
   /* ============================================================ */
 
-  /*
-   * In ResultSet we can use column names or indexes.
-   * Indexes provide better performance, but is problematic when e.g. we add new
-   * column between existsing columns.
-   */
   public List<Artist> queryArtists() {
     return queryArtists(ORDER.NONE);
   }
@@ -250,4 +245,23 @@ public class Datasource {
     }
   }
 
+  /* ============================================================ */
+
+  public int getCount(String table) {
+    String sql = "SELECT COUNT(*) AS count, MAX(_id) AS max_id FROM " + table;
+
+    int count;
+    try (Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql)) {
+
+      count = rs.getInt(1);
+      System.out.println("COUNT = " + rs.getInt(1) + " MAX_ID = " + rs.getInt(2));
+
+    } catch (SQLException e) {
+      System.out.println("Query for counting error: " + e.getMessage());
+      count = -1;
+    }
+
+    return count;
+  }
 }

@@ -8,6 +8,15 @@ import V3_Music.model.Datasource;
 import V3_Music.model.Datasource.ORDER;;
 
 public class Main {
+  /*
+   * Tim Buchalka said to extract parts of SQL statements that do not change to
+   * separate static variables. It's good idea in terms of performance!!! Because
+   * less new strings are being created during querying. However I didn't have
+   * time for it :p
+   *
+   * The idea is like:
+   * String sql = SQL_PART_1 + <my_param> + SQL_PART_2 + ...
+   */
   public static void main(String[] args) {
     Datasource ds = new Datasource();
 
@@ -33,6 +42,12 @@ public class Main {
     /* ============================================================ */ System.out.println("");
 
     ds.querySongsMetadata();
+
+    /* ============================================================ */ System.out.println("");
+
+    System.out.println(ds.getCount(Datasource.TABLE_ALBUMS));
+    System.out.println(ds.getCount(Datasource.TABLE_ARTISTS));
+    System.out.println(ds.getCount(Datasource.TABLE_SONGS));
 
     /* ============================================================ */ System.out.println("");
 
