@@ -1,4 +1,4 @@
-package V3_Music.model;
+package V3_ComplexExample.model;
 
 public class Song {
   private int id;

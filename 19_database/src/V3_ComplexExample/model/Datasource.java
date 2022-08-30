@@ -1,4 +1,4 @@
-package V3_Music.model;
+package V3_ComplexExample.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,7 +41,19 @@ public class Datasource {
   public static final int INDEX_SONG_ALBUM = 4;
 
   public enum ORDER {
-    NONE, ASC, DESC
+    NONE(""),
+    ASC("ASC"),
+    DESC("DESC");
+
+    private String SQL;
+
+    ORDER(String SQL) {
+      this.SQL = SQL;
+    }
+
+    public String getSQL() {
+      return SQL;
+    }
   }
 
   public boolean open() {
@@ -69,6 +81,14 @@ public class Datasource {
 
   /* ============================================================ */
 
+  /*
+   * SELECT * FROM artists
+   * ORDER BY name ASC
+   */
+
+  private static String QUERY_ARTISTS_SQL = "SELECT * FROM " + TABLE_ARTISTS;
+  private static String QUERY_ARTISTS_SQL_ORDER = " ORDER BY " + COLUMN_ARTIST_NAME + " ";
+
   public List<Artist> queryArtists() {
     return queryArtists(ORDER.NONE);
   }
@@ -79,15 +99,10 @@ public class Datasource {
       return null;
     }
 
-    StringBuilder sql = new StringBuilder("SELECT * FROM ");
-    sql.append(TABLE_ARTISTS);
+    StringBuilder sql = new StringBuilder(QUERY_ARTISTS_SQL);
     if (order != ORDER.NONE) {
-      sql.append(" ORDER BY ");
-      sql.append(COLUMN_ARTIST_NAME);
-      sql.append(" COLLATE NOCASE ");
-
-      if (order == ORDER.DESC)
-        sql.append("DESC");
+      sql.append(QUERY_ARTISTS_SQL_ORDER);
+      sql.append(order.getSQL());
     }
 
     List<Artist> list = new ArrayList<>();
@@ -111,6 +126,22 @@ public class Datasource {
 
   /* ============================================================ */
 
+  /*
+   * SELECT albums.*
+   * FROM albums
+   * INNER JOIN artists ON albums.artist = artists._id
+   * WHERE artists.name = 'Pink Floyd'
+   * ORDER BY albums.name
+   */
+
+  private static String QUERY_ALBUMS_BY_ARTIST_SQL = ""
+      + "SELECT " + TABLE_ALBUMS + ".* FROM " + TABLE_ALBUMS
+      + " INNER JOIN " + TABLE_ARTISTS + " ON "
+      + TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST + " = " + TABLE_ARTISTS + "." + COLUMN_ARTIST_ID
+      + " WHERE "
+      + TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME + " = ";
+  private static String QUERY_ALBUMS_BY_ARTIST_SQL_ORDER = " ORDER BY " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + " ";
+
   public List<Album> queryAlbumsByArtist(String artistName) {
     return queryAlbumsByArtist(artistName, ORDER.NONE);
   }
@@ -121,43 +152,17 @@ public class Datasource {
       return null;
     }
 
-    /*
-     * SELECT albums.*
-     * FROM albums
-     * INNER JOIN artists ON albums.artist = artists._id
-     * WHERE artists.name = 'Pink Floyd'
-     * ORDER BY albums.name COLLATE NOCASE
-     */
-
-    StringBuilder sql = new StringBuilder();
-    sql.append("SELECT ");
-    sql.append(TABLE_ALBUMS);
-    sql.append(".* ");
-    sql.append("FROM ");
-    sql.append(TABLE_ALBUMS);
-
-    sql.append(" INNER JOIN ");
-    sql.append(TABLE_ARTISTS);
-    sql.append(" ON ");
-    sql.append(TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST);
-    sql.append(" = ");
-    sql.append(TABLE_ARTISTS + "." + COLUMN_ARTIST_ID);
-    sql.append(" WHERE ");
-    sql.append(TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME);
-    sql.append(" = ");
-    sql.append("'" + artistName + "'");
+    StringBuilder sql = new StringBuilder(QUERY_ALBUMS_BY_ARTIST_SQL);
+    sql.append("'");
+    sql.append(artistName);
+    sql.append("'");
 
     if (order != ORDER.NONE) {
-      sql.append(" ORDER BY ");
-      sql.append(COLUMN_ARTIST_NAME);
-      sql.append(" COLLATE NOCASE ");
-
-      if (order == ORDER.DESC)
-        sql.append("DESC");
+      sql.append(QUERY_ALBUMS_BY_ARTIST_SQL_ORDER);
+      sql.append(order.getSQL());
     }
 
     List<Album> list = new ArrayList<>();
-
     try (Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql.toString())) {
 
@@ -180,32 +185,33 @@ public class Datasource {
 
   /* ============================================================ */
 
+  /*
+   * SELECT artists.* FROM artists
+   * INNER JOIN albums ON albums.artist = artists._id
+   * INNER JOIN songs ON songs.album = albums._id
+   * WHERE songs.title = "Echoes"
+   */
+
+  private static String QUERY_ARTIST_BY_SONG_SQL = ""
+      + "SELECT " + TABLE_ARTISTS + ".* FROM " + TABLE_ARTISTS
+      + " INNER JOIN " + TABLE_ALBUMS + " ON "
+      + TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST + " = " + TABLE_ARTISTS + "." + COLUMN_ARTIST_ID
+      + " INNER JOIN " + TABLE_SONGS + " ON "
+      + TABLE_SONGS + "." + COLUMN_SONG_ALBUM + " = " + TABLE_ALBUMS + "." + COLUMN_ALBUM_ID
+      + " WHERE " + TABLE_SONGS + "." + COLUMN_SONG_TITLE + " = ";
+
   public List<Artist> queryArtistsBySong(String songName) {
     if (conn == null) {
       System.out.println("Connection not established");
       return null;
     }
 
-    /*
-     * SELECT artists.* FROM artists
-     * INNER JOIN albums ON albums.artist = artists._id
-     * INNER JOIN songs ON songs.album = albums._id
-     * WHERE songs.title = "Echoes"
-     */
-
-    StringBuilder sql = new StringBuilder();
-    sql.append("SELECT " + TABLE_ARTISTS + ".* FROM " + TABLE_ARTISTS);
-
-    sql.append(" INNER JOIN " + TABLE_ALBUMS + " ON ");
-    sql.append(TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST + " = " + TABLE_ARTISTS + "." + COLUMN_ARTIST_ID);
-
-    sql.append(" INNER JOIN " + TABLE_SONGS + " ON ");
-    sql.append(TABLE_SONGS + "." + COLUMN_SONG_ALBUM + " = " + TABLE_ALBUMS + "." + COLUMN_ALBUM_ID);
-
-    sql.append(" WHERE " + TABLE_SONGS + "." + COLUMN_SONG_TITLE + " = '" + songName + "'");
+    StringBuilder sql = new StringBuilder(QUERY_ARTIST_BY_SONG_SQL);
+    sql.append("'");
+    sql.append(songName);
+    sql.append("'");
 
     List<Artist> list = new ArrayList<>();
-
     try (Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql.toString())) {
 
@@ -227,8 +233,10 @@ public class Datasource {
 
   /* ============================================================ */
 
+  private static String QUERY_SONGS_SQL = "SELECT * FROM " + TABLE_SONGS;
+
   public void querySongsMetadata() {
-    String sql = "SELECT * FROM " + TABLE_SONGS;
+    String sql = QUERY_SONGS_SQL;
 
     try (Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql)) {
@@ -247,8 +255,10 @@ public class Datasource {
 
   /* ============================================================ */
 
-  public int getCount(String table) {
-    String sql = "SELECT COUNT(*) AS count, MAX(_id) AS max_id FROM " + table;
+  private static String TABLE_ROW_COUNT_SQL = "SELECT COUNT(*) AS count, MAX(_id) AS max_id FROM ";
+
+  public int getTableRowCount(String tableName) {
+    String sql = TABLE_ROW_COUNT_SQL + tableName;
 
     int count;
     try (Statement stm = conn.createStatement();

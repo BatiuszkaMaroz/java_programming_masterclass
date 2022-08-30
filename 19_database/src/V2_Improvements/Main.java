@@ -16,9 +16,11 @@ public class Main {
    * However you should stick to these rules:
    *
    * 1. For parts of SQL statements that won't change you should go for static
-   * variables. While constructing them you can use string concatenation (+) or
-   * eventually formatting (format()/formatted()) because string will be compiled
-   * only one time, the performance impact shouldn't be significant.
+   * variables. Static because they will be created only once, no matter how many
+   * datasource instances we have. While constructing them you can use string
+   * concatenation (+) or eventually formatting (format()/formatted()) because
+   * string will be compiled only one time, the performance impact shouldn't be
+   * significant.
    *
    * 2. For parts of SQL statements that will be different during queries you
    * should use string concatenation (+) only, because formatting impact on
@@ -65,8 +67,6 @@ public class Main {
       stm.execute(CREATE_CONTACTS_TABLE_SQL);
 
       stm.execute(INSERT_INTO_CONTACTS_SQL_START + " VALUES('Harold', 111222333, 'harold@mail.com') ");
-
-      /* ================================================== */
 
       /*
        * In ResultSet we can use column names or indexes.

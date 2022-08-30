@@ -1,9 +1,8 @@
-package V3_Music.model;
+package V3_ComplexExample.model;
 
-public class Album {
+public class Artist {
   private int id;
   private String name;
-  private int artistId;
 
   public int getId() {
     return id;
@@ -21,11 +20,4 @@ public class Album {
     this.name = name;
   }
 
-  public int getArtistId() {
-    return artistId;
-  }
-
-  public void setArtistId(int artistId) {
-    this.artistId = artistId;
-  }
 }
