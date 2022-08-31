@@ -1,11 +1,11 @@
-package V3_ComplexExample;
+package V3_Complex_Example;
 
 import java.util.List;
 
-import V3_ComplexExample.model.Album;
-import V3_ComplexExample.model.Artist;
-import V3_ComplexExample.model.Datasource;
-import V3_ComplexExample.model.Datasource.ORDER;
+import V3_Complex_Example.model.Album;
+import V3_Complex_Example.model.Artist;
+import V3_Complex_Example.model.Datasource;
+import V3_Complex_Example.model.Datasource.ORDER;
 
 public class Main {
   public static void main(String[] args) {

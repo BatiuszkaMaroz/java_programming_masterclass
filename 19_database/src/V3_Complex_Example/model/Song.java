@@ -1,4 +1,4 @@
-package V3_ComplexExample.model;
+package V3_Complex_Example.model;
 
 public class Song {
   private int id;

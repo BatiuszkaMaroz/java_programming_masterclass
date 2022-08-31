@@ -1,9 +1,8 @@
-package V4_PreparedStatements.model;
+package V5_Prepared_And_Transactions.model;
 
-public class Album {
+public class Artist {
   private int id;
   private String name;
-  private int artistId;
 
   public int getId() {
     return id;
@@ -21,11 +20,4 @@ public class Album {
     this.name = name;
   }
 
-  public int getArtistId() {
-    return artistId;
-  }
-
-  public void setArtistId(int artistId) {
-    this.artistId = artistId;
-  }
 }

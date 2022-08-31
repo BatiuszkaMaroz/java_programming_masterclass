@@ -1,6 +1,6 @@
-package V4_PreparedStatements;
+package V4_Prepared_Statements;
 
-import V4_PreparedStatements.model.Datasource;
+import V4_Prepared_Statements.model.Datasource;
 
 public class Main {
   public static void main(String[] args) {

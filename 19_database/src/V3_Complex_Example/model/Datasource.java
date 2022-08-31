@@ -1,4 +1,4 @@
-package V3_ComplexExample.model;
+package V3_Complex_Example.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -86,8 +86,8 @@ public class Datasource {
    * ORDER BY name ASC
    */
 
-  private static String QUERY_ARTISTS_SQL = "SELECT * FROM " + TABLE_ARTISTS;
-  private static String QUERY_ARTISTS_SQL_ORDER = " ORDER BY " + COLUMN_ARTIST_NAME + " ";
+  private static final String QUERY_ARTISTS_SQL = "SELECT * FROM " + TABLE_ARTISTS;
+  private static final String QUERY_ARTISTS_SQL_ORDER = " ORDER BY " + COLUMN_ARTIST_NAME + " ";
 
   public List<Artist> queryArtists() {
     return queryArtists(ORDER.NONE);
@@ -134,13 +134,14 @@ public class Datasource {
    * ORDER BY albums.name
    */
 
-  private static String QUERY_ALBUMS_BY_ARTIST_SQL = ""
+  private static final String QUERY_ALBUMS_BY_ARTIST_SQL = ""
       + "SELECT " + TABLE_ALBUMS + ".* FROM " + TABLE_ALBUMS
       + " INNER JOIN " + TABLE_ARTISTS + " ON "
       + TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST + " = " + TABLE_ARTISTS + "." + COLUMN_ARTIST_ID
       + " WHERE "
       + TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME + " = ";
-  private static String QUERY_ALBUMS_BY_ARTIST_SQL_ORDER = " ORDER BY " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + " ";
+  private static final String QUERY_ALBUMS_BY_ARTIST_SQL_ORDER = " ORDER BY " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME
+      + " ";
 
   public List<Album> queryAlbumsByArtist(String artistName) {
     return queryAlbumsByArtist(artistName, ORDER.NONE);
@@ -192,7 +193,7 @@ public class Datasource {
    * WHERE songs.title = "Echoes"
    */
 
-  private static String QUERY_ARTIST_BY_SONG_SQL = ""
+  private static final String QUERY_ARTIST_BY_SONG_SQL = ""
       + "SELECT " + TABLE_ARTISTS + ".* FROM " + TABLE_ARTISTS
       + " INNER JOIN " + TABLE_ALBUMS + " ON "
       + TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST + " = " + TABLE_ARTISTS + "." + COLUMN_ARTIST_ID
@@ -233,7 +234,7 @@ public class Datasource {
 
   /* ============================================================ */
 
-  private static String QUERY_SONGS_SQL = "SELECT * FROM " + TABLE_SONGS;
+  private static final String QUERY_SONGS_SQL = "SELECT * FROM " + TABLE_SONGS;
 
   public void querySongsMetadata() {
     String sql = QUERY_SONGS_SQL;
@@ -255,7 +256,7 @@ public class Datasource {
 
   /* ============================================================ */
 
-  private static String TABLE_ROW_COUNT_SQL = "SELECT COUNT(*) AS count, MAX(_id) AS max_id FROM ";
+  private static final String TABLE_ROW_COUNT_SQL = "SELECT COUNT(*) AS count, MAX(_id) AS max_id FROM ";
 
   public int getTableRowCount(String tableName) {
     String sql = TABLE_ROW_COUNT_SQL + tableName;

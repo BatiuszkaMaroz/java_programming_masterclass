@@ -1,4 +1,4 @@
-package V4_PreparedStatements.model;
+package V3_Complex_Example.model;
 
 public class Artist {
   private int id;

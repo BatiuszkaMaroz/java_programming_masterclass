@@ -1,4 +1,4 @@
-package V3_ComplexExample.model;
+package V4_Prepared_Statements.model;
 
 public class Album {
   private int id;

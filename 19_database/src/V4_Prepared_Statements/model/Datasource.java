@@ -1,4 +1,4 @@
-package V4_PreparedStatements.model;
+package V4_Prepared_Statements.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -52,12 +52,15 @@ public class Datasource {
     return true;
   }
 
-  private void prepareStatements() throws SQLException {
-    queryArtistListStm = conn.prepareStatement(queryArtistListSQL);
-  }
+  /*
+   * If you close the Connection object first, it will close the PreparedStatement
+   * object as well. However, you should always explicitly close the
+   * PreparedStatement object to ensure proper cleanup.
+   */
 
   public boolean close() {
     try {
+      closeStatements();
       if (conn != null)
         conn.close();
     } catch (SQLException e) {
@@ -68,9 +71,18 @@ public class Datasource {
     return true;
   }
 
+  private void prepareStatements() throws SQLException {
+    queryArtistListStm = conn.prepareStatement(QUERY_ARTIST_LIST_SQL);
+  }
+
+  private void closeStatements() throws SQLException {
+    if (queryArtistListStm != null)
+      queryArtistListStm.close();
+  }
+
   /* ============================================================ */
 
-  private static String createArtistListViewSQL = """
+  private static final String CREATE_ARTIST_LIST_VIEW_SQL = """
       CREATE VIEW IF NOT EXISTS artist_list AS
       SELECT
         artists.name,
@@ -85,7 +97,7 @@ public class Datasource {
 
   public void createArtistListView() {
     try (Statement stm = conn.createStatement()) {
-      stm.execute(createArtistListViewSQL);
+      stm.execute(CREATE_ARTIST_LIST_VIEW_SQL);
     } catch (SQLException e) {
       System.out.println("query error: " + e.getMessage());
     }
@@ -94,7 +106,7 @@ public class Datasource {
   /* ============================================================ */
 
   private PreparedStatement queryArtistListStm;
-  private static String queryArtistListSQL = """
+  private static final String QUERY_ARTIST_LIST_SQL = """
       SELECT
         name,
         album,
@@ -102,6 +114,11 @@ public class Datasource {
       FROM artist_list
       WHERE title = ?
       """;
+
+  /*
+   * ResultSet after executing PreparedStatement has to be closed manually to
+   * avoid memory leaks.
+   */
 
   public void queryArtistList() {
     System.out.println("Enter song title:");
@@ -117,6 +134,7 @@ public class Datasource {
             + rs.getString(2) + " : "
             + rs.getInt(3));
 
+      rs.close();
     } catch (SQLException e) {
       System.out.println("query error: " + e.getMessage());
       return;

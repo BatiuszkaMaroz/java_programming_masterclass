@@ -13,6 +13,14 @@ public class Main {
    * All JDBC drivers implement the same interface so if we want to change
    * database all we have to do is to use another driver (of course it's not
    * always 100% portable).
+   *
+   * When application is finish, connection, statements and result sets has to be
+   * closed to avoid memory leaks.
+   *
+   * Closing Connection closes all Statements (and prepared statements).
+   * Closing Statement closes ResultsSet associated with it.
+   *
+   * However it's good to close Statements explicitly.
    */
 
   static final String DB_BASE_PATH = "jdbc:sqlite:/home/david/projects/java/java_programming_masterclass/19_database/db";
