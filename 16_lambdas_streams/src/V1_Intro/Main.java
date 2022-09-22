@@ -14,7 +14,7 @@ public class Main {
     }).start();
 
     /*
-     * We can use lambda expression when one of the classes constructors
+     * We can use lambda expression in classes constructors when one of them
      * accepts an interface that has an only one method.
      *
      * Number of paramenters and return type are known because of that interface.

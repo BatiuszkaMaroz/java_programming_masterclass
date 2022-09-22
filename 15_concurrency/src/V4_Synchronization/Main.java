@@ -10,13 +10,16 @@ class Countdown {
    * long as a thread owns an intrinsic lock, no other thread can acquire the same
    * lock.
    *
+   * When thread has lock it can execute synchronized methods.
+   *
    * When a thread invokes a synchronized method, it automatically acquires the
    * lock for that object (class instance) and releases it when the thread
    * completes its task.
    *
    * So only one synchronized method on object can be executed at the time. Rest
    * of the threads that want to execute any of synchronized methods on this
-   * object are suspended.
+   * object are suspended. Non-synchronized methods are executed normally without
+   * locking.
    */
   public synchronized void start1() {
     String color;
@@ -67,6 +70,16 @@ class Countdown {
         System.out.println(color + Thread.currentThread().getName() + ": " + i + Colors.ANSI_RESET);
     }
   }
+
+  /*
+   * Non synchronized methods are executed without locking.
+   */
+  public void start3() {
+    String color = Colors.ANSI_RED;
+
+    for (int i = 10; i >= 0; i--)
+      System.out.println(color + Thread.currentThread().getName() + ": " + i + Colors.ANSI_RESET);
+  }
 }
 
 class CountdownThread extends Thread {
@@ -82,8 +95,21 @@ class CountdownThread extends Thread {
    */
   @Override
   public void run() {
-    // countdown.start1();
-    countdown.start2();
+    countdown.start1();
+    // countdown.start2();
+  }
+}
+
+class ReadonlyCountdownThread extends Thread {
+  private Countdown countdown;
+
+  public ReadonlyCountdownThread(Countdown countdown) {
+    this.countdown = countdown;
+  }
+
+  @Override
+  public void run() {
+    countdown.start3();
   }
 }
 
@@ -108,7 +134,11 @@ public class Main {
     Thread t2 = new CountdownThread(c);
     t2.setName("Thread 2");
 
+    Thread t3 = new ReadonlyCountdownThread(c);
+    t3.setName("Readonly Thread 3");
+
     t1.start();
     t2.start();
+    t3.start();
   }
 }
